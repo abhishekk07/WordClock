@@ -3,7 +3,12 @@
 #include <Wire.h>
 #include "RTClib.h"
 RTC_DS3231 rtc;
-
+ /*
+ #define TEST_MODE
+  */
+  /*
+   * Only uncomment above #define when testing code 
+   */
 #define data_pin 8  /* Pin to send data over */
 #define clk 11      /* Pin to send clock signal */
 #define oe 10      /* Set to high when data has been sent completly */
@@ -48,6 +53,32 @@ RTC_DS3231 rtc;
 #define PM          0 
 
 int data_bits,hrs,mins;
+#ifdef TEST_MODE
+char words[32][10]={"PM","AM","ABHISHEK",
+                    "OCLOCK","TWELVE",
+                    "TEN_H","THREE",
+                    "FIVE_H","SEVEN","NINE",
+                    "EIGHT","AKASH","TWO",
+                    "SIX", "FOUR","ELEVEN",
+                    "BDAY","ONE",
+                    "TO","PAST","HAPPY",
+                    "MINUTES","FIVE_M",
+                    "TWENTY","QUARTER",
+                    "HALF","TEN_M","IS","IT",
+                    "NONE","NONE","NONE"};
+void check()
+{
+  int i;
+  bool mybit;
+  Serial.print("data_bits\t");Serial.println("Words");
+  for(i=0;i<32;i++)
+  {
+      mybit = data_bits>>i & 1;
+      Serial.print(mybit);Serial.print("\t\t");Serial.println(words[i]);
+  }
+}
+#endif
+
 void calc_time_hrs()
 {
   updateBitValues(IT,1); /* IT=1; */
@@ -312,5 +343,10 @@ void loop()
   calc_time_hrs();
   birthday_check();
   serialOut();
+
+  #ifdef TEST_MODE
+  check();
+  delay(10000);
+  #endif
 
 }
