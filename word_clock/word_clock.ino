@@ -1,5 +1,4 @@
 /*Word Clock 2018*/
-/* A small change */
 
 #include <Wire.h>
 #include "RTClib.h"
@@ -51,56 +50,56 @@ RTC_DS3231 rtc;
 int data_bits,hrs,mins;
 void calc_time_hrs()
 {
-  updateBitVauess(IT,1); /* IT=1; */
-  updateBitVauess(IS,1); /* IS=1; */
+  updateBitValues(IT,1); /* IT=1; */
+  updateBitValues(IS,1); /* IS=1; */
   if(hrs>12)
     {
       hrs-=12;
-      updateBitVauess(PM,1); /* PM =1; */
+      updateBitValues(PM,1); /* PM =1; */
     }
   else
     {
-      updateBitVauess(AM,1); /* AM =1; */
+      updateBitValues(AM,1); /* AM =1; */
     }
 
     switch(hrs){
-      case 0  : updateBitVauess(TWELVE,1); /*TWELVE=1; */
+      case 0  : updateBitValues(TWELVE,1); /*TWELVE=1; */
                 break;
               
-      case 1: updateBitVauess(ONE,1); /*ONE=1; */
+      case 1: updateBitValues(ONE,1); /*ONE=1; */
               break;
               
-      case 2: updateBitVauess(TWO,1); /*TWO=1; */
+      case 2: updateBitValues(TWO,1); /*TWO=1; */
               break;
               
-      case 3: updateBitVauess(THREE,1); /*THREE=1; */
+      case 3: updateBitValues(THREE,1); /*THREE=1; */
               break;
               
-      case 4: updateBitVauess(FOUR,1); /*FOUR=1; */
+      case 4: updateBitValues(FOUR,1); /*FOUR=1; */
               break;
               
-      case 5: updateBitVauess(FIVE_H,1); /*FIVE_H=1; */
+      case 5: updateBitValues(FIVE_H,1); /*FIVE_H=1; */
               break;
               
-      case 6: updateBitVauess(SIX,1); /*SIX=1;  */
+      case 6: updateBitValues(SIX,1); /*SIX=1;  */
               break;
               
-      case 7: updateBitVauess(SEVEN,1); /*SEVEN=1;  */
+      case 7: updateBitValues(SEVEN,1); /*SEVEN=1;  */
               break;
               
-      case 8: updateBitVauess(EIGHT,1); /*EIGHT=1; */
+      case 8: updateBitValues(EIGHT,1); /*EIGHT=1; */
               break;
               
-      case 9: updateBitVauess(NINE,1); /*NINE=1; */
+      case 9: updateBitValues(NINE,1); /*NINE=1; */
               break;
               
-      case 10: updateBitVauess(TEN_H,1); /*TEN_H=1; */
+      case 10: updateBitValues(TEN_H,1); /*TEN_H=1; */
               break;
               
-      case 11: updateBitVauess(ELEVEN,1); /*ELEVEN=1; */
+      case 11: updateBitValues(ELEVEN,1); /*ELEVEN=1; */
               break;
               
-      case 12 :updateBitVauess(TWELVE,1); /*TWELVE=1; */
+      case 12 :updateBitValues(TWELVE,1); /*TWELVE=1; */
                /* 
                 AM=0;
                 PM=1; 
@@ -121,8 +120,8 @@ void calc_time_mins()
   mins= cur_time.minute();
   hrs= cur_time.hour();
   bool greater_than_30=0;
-  PAST=1;
-  MINUTES = 1;
+  updateBitValues(PAST,1); /* PAST=1; */
+  updateBitValues(MINUTES,1);/* MINUTES = 1; */
 
   if(mins>34)
   {
@@ -142,33 +141,33 @@ void calc_time_mins()
         } 
       else if(mins<10)
       {
-        updateBitVauess(FIVE_M,1); /*FIVE_M = 1; */
-        updateBitVauess(PAST,1); /* PAST = 1; */
-        updateBitVauess(MINUTES,1); /* MINUTES = 1;  */
+        updateBitValues(FIVE_M,1); /*FIVE_M = 1; */
+        updateBitValues(PAST,1); /* PAST = 1; */
+        updateBitValues(MINUTES,1); /* MINUTES = 1;  */
         }
        else if(mins<15)
       {
-        updateBitVauess(TEN_M,1); /*TEN_M = 1; */
-        updateBitVauess(PAST,1); /* PAST = 1; */
-        updateBitVauess(MINUTES,1); /* MINUTES = 1;  */
+        updateBitValues(TEN_M,1); /*TEN_M = 1; */
+        updateBitValues(PAST,1); /* PAST = 1; */
+        updateBitValues(MINUTES,1); /* MINUTES = 1;  */
         }
        else if(mins<20)
       {
-        updateBitVauess(QUARTER,1); /*QUARTER=1; */
+        updateBitValues(QUARTER,1); /*QUARTER=1; */
         updateBitValues(MINUTES,0); /*  MINUTES=0; */
         }
        else if(mins<25)
       {
-        updateBitVauess(TWENTY); /*TWENTY = 1; */
-        updateBitVauess(PAST); /* PAST = 1; */
-        updateBitVauess(MINUTES); /* MINUTES = 1;  */
+        updateBitValues(TWENTY,1); /*TWENTY = 1; */
+        updateBitValues(PAST,1); /* PAST = 1; */
+        updateBitValues(MINUTES,1); /* MINUTES = 1;  */
         }
        else if(mins<30)
       {
-        updateBitVauess(TWENTY,1); /*TWENTY_M = 1; */
-        updateBitVauess(FIVE_M,1); /*FIVE_M = 1; */
-        updateBitVauess(PAST,1); /* PAST = 1; */
-        updateBitVauess(MINUTES,1); /* MINUTES = 1;  */
+        updateBitValues(TWENTY,1); /*TWENTY_M = 1; */
+        updateBitValues(FIVE_M,1); /*FIVE_M = 1; */
+        updateBitValues(PAST,1); /* PAST = 1; */
+        updateBitValues(MINUTES,1); /* MINUTES = 1;  */
         
         }
        else if(mins<35)
@@ -182,29 +181,29 @@ void calc_time_mins()
     {
       if(mins<10)
       {
-        updateBitVauess(TWENTY,1); /*TWENTY_M = 1; */
-        updateBitVauess(FIVE_M,1); /*FIVE_M = 1; */
-        updateBitVauess(MINUTES,1); /* MINUTES = 1;  */
+        updateBitValues(TWENTY,1); /*TWENTY_M = 1; */
+        updateBitValues(FIVE_M,1); /*FIVE_M = 1; */
+        updateBitValues(MINUTES,1); /* MINUTES = 1;  */
         
        }
        else if(mins<15)      {
-        updateBitVauess(TWENTY); /*TWENTY = 1; */
-        updateBitVauess(MINUTES); /* MINUTES = 1;  */
+        updateBitValues(TWENTY,1); /*TWENTY = 1; */
+        updateBitValues(MINUTES,1); /* MINUTES = 1;  */
         }
        else if(mins<20)
       {
-        updateBitVauess(QUARTER,1); /*QUARTER=1; */
+        updateBitValues(QUARTER,1); /*QUARTER=1; */
         updateBitValues(MINUTES,0); /*  MINUTES=0; */
         }
        else if(mins<25) 
        {
-        updateBitVauess(TEN_M,1); /*TEN_M = 1; */
-        updateBitVauess(MINUTES,1); /* MINUTES = 1;  */
+        updateBitValues(TEN_M,1); /*TEN_M = 1; */
+        updateBitValues(MINUTES,1); /* MINUTES = 1;  */
         }
        else if(mins<30)
       {
-        updateBitVauess(FIVE_M,1); /*FIVE_M = 1; */
-        updateBitVauess(MINUTES,1); /* MINUTES = 1;  */
+        updateBitValues(FIVE_M,1); /*FIVE_M = 1; */
+        updateBitValues(MINUTES,1); /* MINUTES = 1;  */
         }
        }
 
@@ -268,15 +267,15 @@ void birthday_check()
   {
     if(cur_time.day() == birthdayDay1)
     {
-      updateBitValues(birthdayName1);  /* AKASH=1; */
-      updateBitValues(HAPPY);  /* HAPPY=1; */
-      updateBitValues(BIRTHDAY); /* BIRTHDAY=1; */
+      updateBitValues(birthdayName1,1);  /* AKASH=1; */
+      updateBitValues(HAPPY,1);  /* HAPPY=1; */
+      updateBitValues(BIRTHDAY,1); /* BIRTHDAY=1; */
      }
    else if(cur_time.day()== birthdayDay2)
    {
-      updateBitValues(birthdayName2); /*ABHISHEK=1;*/
-      updateBitValues(HAPPY);  /* HAPPY=1; */
-      updateBitValues(BIRTHDAY); /* BIRTHDAY=1; */
+      updateBitValues(birthdayName2,1); /*ABHISHEK=1;*/
+      updateBitValues(HAPPY,1);  /* HAPPY=1; */
+      updateBitValues(BIRTHDAY,1); /* BIRTHDAY=1; */
     }
   }
 
@@ -308,7 +307,7 @@ void setup()
 
 void loop() 
 {
-  updateBitValues(0); 
+  updateBitValues(0,0); 
   calc_time_mins();
   calc_time_hrs();
   birthday_check();
