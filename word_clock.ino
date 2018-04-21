@@ -51,56 +51,56 @@ RTC_DS3231 rtc;
 int data_bits,hrs,mins;
 void calc_time_hrs()
 {
-  updateBitVauess(IT); /* IT=1; */
-  updateBitVauess(IS); /* IS=1; */
+  updateBitVauess(IT,1); /* IT=1; */
+  updateBitVauess(IS,1); /* IS=1; */
   if(hrs>12)
     {
       hrs-=12;
-      updateBitVauess(PM); /* PM =1; */
+      updateBitVauess(PM,1); /* PM =1; */
     }
   else
     {
-      updateBitVauess(AM); /* AM =1; */
+      updateBitVauess(AM,1); /* AM =1; */
     }
 
     switch(hrs){
-      case 0  : updateBitVauess(TWELVE); /*TWELVE=1; */
+      case 0  : updateBitVauess(TWELVE,1); /*TWELVE=1; */
                 break;
               
-      case 1: updateBitVauess(ONE); /*ONE=1; */
+      case 1: updateBitVauess(ONE,1); /*ONE=1; */
               break;
               
-      case 2: updateBitVauess(TWO); /*TWO=1; */
+      case 2: updateBitVauess(TWO,1); /*TWO=1; */
               break;
               
-      case 3: updateBitVauess(THREE); /*THREE=1; */
+      case 3: updateBitVauess(THREE,1); /*THREE=1; */
               break;
               
-      case 4: updateBitVauess(FOUR); /*FOUR=1; */
+      case 4: updateBitVauess(FOUR,1); /*FOUR=1; */
               break;
               
-      case 5: updateBitVauess(FIVE_H); /*FIVE_H=1; */
+      case 5: updateBitVauess(FIVE_H,1); /*FIVE_H=1; */
               break;
               
-      case 6: updateBitVauess(SIX); /*SIX=1;  */
+      case 6: updateBitVauess(SIX,1); /*SIX=1;  */
               break;
               
-      case 7: updateBitVauess(SEVEN); /*SEVEN=1;  */
+      case 7: updateBitVauess(SEVEN,1); /*SEVEN=1;  */
               break;
               
-      case 8: updateBitVauess(EIGHT); /*EIGHT=1; */
+      case 8: updateBitVauess(EIGHT,1); /*EIGHT=1; */
               break;
               
-      case 9: updateBitVauess(NINE); /*NINE=1; */
+      case 9: updateBitVauess(NINE,1); /*NINE=1; */
               break;
               
-      case 10: updateBitVauess(TEN_H); /*TEN_H=1; */
+      case 10: updateBitVauess(TEN_H,1); /*TEN_H=1; */
               break;
               
-      case 11: updateBitVauess(ELEVEN); /*ELEVEN=1; */
+      case 11: updateBitVauess(ELEVEN,1); /*ELEVEN=1; */
               break;
               
-      case 12 :updateBitVauess(TWELVE); /*TWELVE=1; */
+      case 12 :updateBitVauess(TWELVE,1); /*TWELVE=1; */
                /* 
                 AM=0;
                 PM=1; 
@@ -128,8 +128,8 @@ void calc_time_mins()
   {
       greater_than_30=1;
       mins-=30;
-      TO=1;
-      PAST=0;
+      updateBitValues(TO,0); /* TO=1;  */
+      updateBitValues(PAST,0);/* PAST=0; */
       hrs++;
    }
 
@@ -137,25 +137,25 @@ void calc_time_mins()
     {
       if(mins<5)
       {
-        PAST=0;
-        MINUTES=0;
+        updateBitValues(PAST,0); /*PAST=0; */
+        updateBitValues(MINUTES,0); /* MINUTES=0; */
         } 
       else if(mins<10)
       {
-        updateBitVauess(FIVE_M); /*FIVE_M = 1; */
-        updateBitVauess(PAST); /* PAST = 1; */
-        updateBitVauess(MINUTES); /* MINUTES = 1;  */
+        updateBitVauess(FIVE_M,1); /*FIVE_M = 1; */
+        updateBitVauess(PAST,1); /* PAST = 1; */
+        updateBitVauess(MINUTES,1); /* MINUTES = 1;  */
         }
        else if(mins<15)
       {
-        updateBitVauess(TEN_M); /*TEN_M = 1; */
-        updateBitVauess(PAST); /* PAST = 1; */
-        updateBitVauess(MINUTES); /* MINUTES = 1;  */
+        updateBitVauess(TEN_M,1); /*TEN_M = 1; */
+        updateBitVauess(PAST,1); /* PAST = 1; */
+        updateBitVauess(MINUTES,1); /* MINUTES = 1;  */
         }
        else if(mins<20)
       {
-        updateBitVauess(QUARTER); /*QUARTER=1; */
-                                  /*  MINUTES=0; */
+        updateBitVauess(QUARTER,1); /*QUARTER=1; */
+        updateBitValues(MINUTES,0); /*  MINUTES=0; */
         }
        else if(mins<25)
       {
@@ -165,54 +165,64 @@ void calc_time_mins()
         }
        else if(mins<30)
       {
-        updateBitVauess(TWENTY); /*TWENTY_M = 1; */
-        updateBitVauess(FIVE_M); /*FIVE_M = 1; */
-        updateBitVauess(PAST); /* PAST = 1; */
-        updateBitVauess(MINUTES); /* MINUTES = 1;  */
+        updateBitVauess(TWENTY,1); /*TWENTY_M = 1; */
+        updateBitVauess(FIVE_M,1); /*FIVE_M = 1; */
+        updateBitVauess(PAST,1); /* PAST = 1; */
+        updateBitVauess(MINUTES,1); /* MINUTES = 1;  */
         
         }
        else if(mins<35)
       {
-        HALF=1;
-        TO=0;
-        PAST=1;
+       updateBitValues(HALF,1); /* HALF=1; */
+        updateBitValues(TO,0); /* TO=0; */
+        updateBitValues(PAST,1); /* PAST=1; */
         }  
      }
     if(greater_than_30==1)
     {
       if(mins<10)
-      {   
-          TWENTY=1;
-          FIVE_M=1;
-        }
-       else if(mins<15)
       {
-        TWENTY=1;
+        updateBitVauess(TWENTY,1); /*TWENTY_M = 1; */
+        updateBitVauess(FIVE_M,1); /*FIVE_M = 1; */
+        updateBitVauess(MINUTES,1); /* MINUTES = 1;  */
+        
+       }
+       else if(mins<15)      {
+        updateBitVauess(TWENTY); /*TWENTY = 1; */
+        updateBitVauess(MINUTES); /* MINUTES = 1;  */
         }
        else if(mins<20)
       {
-        QUARTER=1;
-        MINUTES=0;
+        updateBitVauess(QUARTER,1); /*QUARTER=1; */
+        updateBitValues(MINUTES,0); /*  MINUTES=0; */
         }
-       else if(mins<25)
-      {
-        TEN_M=1;
+       else if(mins<25) 
+       {
+        updateBitVauess(TEN_M,1); /*TEN_M = 1; */
+        updateBitVauess(MINUTES,1); /* MINUTES = 1;  */
         }
        else if(mins<30)
       {
-        FIVE_M=1;
+        updateBitVauess(FIVE_M,1); /*FIVE_M = 1; */
+        updateBitVauess(MINUTES,1); /* MINUTES = 1;  */
         }
-     }
+       }
 
 }
 /* Function used to update bit values corresponding to certain word */
-void updateBitValues(int bitNumber)
+void updateBitValues(int bitNumber, int valueToUpdate)
 {
   if(bitNumber != 31)
-    data_bits |= 1 << bitNumber;  /* Update bit which corresponds to certain letter */
+  {
+    if (valueToUpdate)
+      data_bits |= 1 << bitNumber;  /* Update bit which corresponds to certain letter to 1*/
+    else
+      data_bits &= ~(1<<bitNumber);
+  }
   else 
     data_bits = 0;
-}
+
+  }
 
 /* Function outputs data bitwise on dataPin and clocks clock pin 
    and strobe pin */
