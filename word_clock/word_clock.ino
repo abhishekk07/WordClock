@@ -131,12 +131,8 @@ void calc_time_hrs()
               break;
               
       case 12 :updateBitValues(TWELVE,1); /*TWELVE=1; */
-               /* 
-                AM=0;
-                PM=1; 
-                
-                maybe not required not sure
-                */
+                updateBitValues(AM,0); /* AM =0; */
+                updateBitValues(PM,1); /*Pm =1;*/
                 break;
                 
     
@@ -186,6 +182,7 @@ void calc_time_mins()
       {
         updateBitValues(QUARTER,1); /*QUARTER=1; */
         updateBitValues(MINUTES,0); /*  MINUTES=0; */
+        updateBitValues(PAST,1); /* PAST=1; */
         }
        else if(mins<25)
       {
