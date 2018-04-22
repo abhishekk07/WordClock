@@ -267,6 +267,13 @@ void serialOut(void)
     /* Read data_bits into pattern[i] and send it out on data_pin */
     pattern[counter] = ((data_bits>>(8*counter)) & 0xFF);  
     shiftOut(data_pin, clk, LSBFIRST, pattern[counter]);
+    /*
+     * shiftOut(data_pin, clk, LSBFIRST, pattern[counter]);
+     */
+     /*
+      * MSBFIRST or LSBFIRST not sure 
+      * 22-4-2018 Most probably LSBFIRST is correct
+     */
     digitalWrite(strobe,1);
     delay(1);
     digitalWrite(strobe,0);
