@@ -5,10 +5,9 @@
 RTC_DS3231 rtc;
  /*
  #define TEST_MODE
+ 
+ Only uncomment above #define when testing code 
   */
-  /*
-   * Only uncomment above #define when testing code 
-   */
 #define data_pin 8  /* Pin to send data over */
 #define clk 11      /* Pin to send clock signal */
 #define oe 10      /* Set to high when data has been sent completly */
@@ -342,7 +341,7 @@ void setup()
 
 void loop() 
 {
-  updateBitValues(0,0); 
+  updateBitValues(31,0); /* Clear all the bits from previous cycle */
   calc_time_mins();
   calc_time_hrs();
   birthday_check();
