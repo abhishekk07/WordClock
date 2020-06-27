@@ -1,5 +1,5 @@
 /*Word Clock 2018*/
-
+/* checking */
 #include <Wire.h>
 #include "RTClib.h"
 RTC_DS3231 rtc;
