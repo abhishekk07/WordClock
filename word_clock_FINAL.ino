@@ -3,42 +3,43 @@
 #define oe 10
 #define strobe 13
 
-#define IT          data_bits[31] 
-#define IS          data_bits[30] 
-#define TEN_M       data_bits[29] 
-#define HALF        data_bits[28]  
-#define QUARTER     data_bits[27]
-#define TWENTY      data_bits[26]
-#define FIVE_M      data_bits[25]
-#define MINUTES     data_bits[24]
-#define HAPPY       data_bits[23]  
-#define PAST        data_bits[22]
-#define TO          data_bits[21]
-#define ONE         data_bits[20] 
-#define BIRTHDAY    data_bits[19] 
-#define ELEVEN      data_bits[18]
-#define FOUR        data_bits[17] 
-#define SIX         data_bits[16]
-#define TWO         data_bits[15] 
-#define AKASH       data_bits[14] 
-#define EIGHT       data_bits[13]
-#define NINE        data_bits[12]
-#define SEVEN       data_bits[11] 
-#define FIVE_H      data_bits[10]
-#define THREE       data_bits[9]
-#define TEN_H       data_bits[8]
-#define TWELVE      data_bits[7]
-#define OCLOCK      data_bits[6]
-#define ABHISHEK    data_bits[5] 
-#define AM          data_bits[4] 
-#define PM          data_bits[3] 
+#define IT          (1<<31) 
+#define IS          (1<<30) 
+#define TEN_M       (1<<29) 
+#define HALF        (1<<28)  
+#define QUARTER     (1<<27)
+#define TWENTY      (1<<26)
+#define FIVE_M      (1<<25)
+#define MINUTES     (1<<24)
+#define HAPPY       (1<<23)  
+#define PAST        (1<<22)
+#define TO          (1<<21)
+#define ONE         (1<<20) 
+#define BIRTHDAY    (1<<19) 
+#define ELEVEN      (1<<18)
+#define FOUR        (1<<17) 
+#define SIX         (1<<16)
+#define TWO         (1<<15) 
+#define AKASH       (1<<14) 
+#define EIGHT       (1<<13)
+#define NINE        (1<<12)
+#define SEVEN       (1<<11) 
+#define FIVE_H      (1<<10)
+#define THREE       (1<<9)
+#define TEN_H       (1<<8)
+#define TWELVE      (1<<7)
+#define OCLOCK      (1<<6)
+#define ABHISHEK    (1<<5) 
+#define AM          (1<<4) 
+#define PM          (1<<3) 
 /* 
  #define AM data_bits[2] 
 #define AM data_bits[1] 
 #define AM data_bits[0] 
 */
 unsigned long powa(int base, int expo);
-unsigned long num;
+unsigned long nume;
+unsigned long data_num = 0;
 int j,l,hrs,mins,i,data_bits[32];
 char words[32][10]={"NONE","NONE","NONE",
                     "PM","AM","ABHISHEK",
@@ -66,8 +67,9 @@ RTC_DS3231 rtc;
 
 void clr_all()
 {
-  for(i=0;i<32;i++)
-    data_bits[i]=0;  
+  data_num = 0;
+// for(i=0;i<32;i++)
+//    data_bits[i]=0;  
 }
 
 
