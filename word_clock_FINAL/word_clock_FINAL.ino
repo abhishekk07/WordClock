@@ -3,44 +3,45 @@
 #define oe 10
 #define strobe 13
 
-#define IT          (1<<31) 
-#define IS          (1<<30) 
-#define TEN_M       (1<<29) 
-#define HALF        (1<<28)  
-#define QUARTER     (1<<27)
-#define TWENTY      (1<<26)
-#define FIVE_M      (1<<25)
-#define MINUTES     (1<<24)
-#define HAPPY       (1<<23)  
-#define PAST        (1<<22)
-#define TO          (1<<21)
-#define ONE         (1<<20) 
-#define BIRTHDAY    (1<<19) 
-#define ELEVEN      (1<<18)
-#define FOUR        (1<<17) 
-#define SIX         (1<<16)
-#define TWO         (1<<15) 
-#define AKASH       (1<<14) 
-#define EIGHT       (1<<13)
-#define NINE        (1<<12)
-#define SEVEN       (1<<11) 
-#define FIVE_H      (1<<10)
-#define THREE       (1<<9)
-#define TEN_H       (1<<8)
-#define TWELVE      (1<<7)
-#define OCLOCK      (1<<6)
-#define ABHISHEK    (1<<5) 
-#define AM          (1<<4) 
-#define PM          (1<<3) 
+#define IT          (1UL<<31) 
+#define IS          (1UL<<30) 
+#define TEN_M       (1UL<<29) 
+#define HALF        (1UL<<28)  
+#define QUARTER     (1UL<<27)
+#define TWENTY      (1UL<<26)
+#define FIVE_M      (1UL<<25)
+#define MINUTES     (1UL<<24)
+#define HAPPY       (1UL<<23)  
+#define PAST        (1UL<<22)
+#define TO          (1UL<<21)
+#define ONE         (1UL<<20) 
+#define BIRTHDAY    (1UL<<19) 
+#define ELEVEN      (1UL<<18)
+#define FOUR        (1UL<<17) 
+#define SIX         (1UL<<16)
+#define TWO         (1UL<<15) 
+#define AKASH       (1UL<<14) 
+#define EIGHT       (1UL<<13)
+#define NINE        (1UL<<12)
+#define SEVEN       (1UL<<11) 
+#define FIVE_H      (1UL<<10)
+#define THREE       (1UL<<9)
+#define TEN_H       (1UL<<8)
+#define TWELVE      (1UL<<7)
+#define OCLOCK      (1UL<<6)
+#define ABHISHEK    (1UL<<5) 
+#define AM          (1UL<<4) 
+#define PM          (1UL<<3) 
 /* 
  #define AM data_bits[2] 
 #define AM data_bits[1] 
 #define AM data_bits[0] 
 */
-unsigned long powa(int base, int expo);
+// unsigned long powa(int base, int expo);
 unsigned long num;
 unsigned long data_num = 0;
 int j,l,hrs,mins,i,data_bits[32];
+#ifdef DEBUG
 char words[32][10]={"NONE","NONE","NONE",
                     "PM","AM","ABHISHEK",
                     "OCLOCK","TWELVE",
@@ -59,7 +60,8 @@ void check(){
   for(i=31;i>=0;i--){
     Serial.print(data_bits[i]);Serial.print("\t\t");Serial.println(words[i]);
   }
-}
+} 
+#endif
 #include <Wire.h>
 #include "RTClib.h"
 
@@ -257,7 +259,7 @@ pinMode(clk,OUTPUT);
 pinMode(oe,OUTPUT);
 pinMode(strobe,OUTPUT);
 }
-
+/* 
 void conv_num(){
 num=0;
 for(j=0;j<32;j++){
@@ -271,13 +273,15 @@ Serial.print("num=  ");
 Serial.println(num,HEX);
 
 }
-
+ */
 void ser_out2(){
   digitalWrite(oe,LOW);
  int pattern[4];  //patter[i] goes to 4094-i ie i th 4094
  for (int i=0 ; i< 4; i++){
-  pattern[i]=((num>>(8*i)) & 0xFF);
+  pattern[i]=((data_num>>(8*i)) & 0xFF);
+  #ifdef DEBUG
  Serial.println(pattern[i],HEX);
+ #endif
  }
  
 for(int i=0;i<4;i++){
@@ -300,7 +304,7 @@ void loop() {
  /* Only uncomment above 2 lines if output is wrong and need to check the number against words
     check will output data_bits along with corresponding word*/
        
-  conv_num();
+  // conv_num();
    ser_out2();
   
  // check();  
