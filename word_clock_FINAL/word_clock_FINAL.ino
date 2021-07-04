@@ -38,7 +38,7 @@
 #define AM data_bits[0] 
 */
 unsigned long powa(int base, int expo);
-unsigned long nume;
+unsigned long num;
 unsigned long data_num = 0;
 int j,l,hrs,mins,i,data_bits[32];
 char words[32][10]={"NONE","NONE","NONE",
@@ -75,56 +75,56 @@ void clr_all()
 
 void calc_time_hrs()
 { 
-  IT=1;
-  IS=1;
-  AM=1;
+  data_num|=IT;
+  data_num|=IS;
+  data_num|=AM;
   if(hrs>12)
     {
       hrs-=12;
-      PM= 1;
-      AM=0;
+      data_num|=PM;
+      data_num&=~AM;
     }
 
     switch(hrs){
-      case 0  : TWELVE=1;
+      case 0  : data_num|=TWELVE;
                 break;
               
-      case 1: ONE=1;
+      case 1: data_num|=ONE;
               break;
               
-      case 2: TWO=1;
+      case 2: data_num|=TWO;
               break;
               
-      case 3: THREE=1;
+      case 3: data_num|=THREE;
               break;
               
-      case 4: FOUR=1;
+      case 4: data_num|=FOUR;
               break;
               
-      case 5: FIVE_H=1;
+      case 5: data_num|=FIVE_H;
               break;
               
-      case 6: SIX=1;
+      case 6: data_num|=SIX;
               break;
               
-      case 7: SEVEN=1;
+      case 7: data_num|=SEVEN;
               break;
               
-      case 8: EIGHT=1;
+      case 8: data_num|=EIGHT;
               break;
               
-      case 9: NINE=1;
+      case 9: data_num|=NINE;
               break;
               
-      case 10: TEN_H=1;
+      case 10: data_num|=TEN_H;
               break;
               
-      case 11: ELEVEN=1;
+      case 11: data_num|=ELEVEN;
               break;
               
-      case 12 :TWELVE=1;
-                AM=0;
-                PM=1;
+      case 12 :data_num|=TWELVE;
+                data_num&=~AM;
+                data_num|=PM;
                 break;
                 
     
@@ -140,15 +140,15 @@ void calc_time_mins()
   mins= cur_time.minute();
   hrs= cur_time.hour();
   bool greater_than_30=0;
-  PAST=1;
-  MINUTES = 1;
+  data_num|=PAST;
+  data_num|=MINUTES;
 
   if(mins>34)
   {
       greater_than_30=1;
       mins-=30;
-      TO=1;
-      PAST=0;
+      data_num|=TO;
+      data_num&=~PAST;
       hrs++;
    }
 
@@ -156,62 +156,62 @@ void calc_time_mins()
     {
       if(mins<5)
       {
-        PAST=0;
-        MINUTES=0;
+        data_num&=~PAST;
+        data_num&=~MINUTES;
         } 
       else if(mins<10)
       {
-        FIVE_M=1;
+        data_num|=FIVE_M;
         }
        else if(mins<15)
       {
-        TEN_M=1;
+        data_num|=TEN_M;
         }
        else if(mins<20)
       {
-        QUARTER=1;
-        MINUTES=0;
+        data_num|=QUARTER;
+        data_num&=~MINUTES;
         }
        else if(mins<25)
       {
-        TWENTY=1;
+        data_num|=TWENTY;
         }
        else if(mins<30)
       {
-        TWENTY=1;
-        FIVE_M=1;
+        data_num|=TWENTY;
+        data_num|=FIVE_M;
         }
        else if(mins<35)
       {
-        HALF=1;
-        TO=0;
-        PAST=1;
-        MINUTES=0;
+        data_num|=HALF;
+        data_num&=~TO;
+        data_num|=PAST;
+        data_num&=~MINUTES;
         }  
      }
     if(greater_than_30==1)
     {
       if(mins<10)
       {   
-          TWENTY=1;
-          FIVE_M=1;
+          data_num|=TWENTY;
+          data_num|=FIVE_M;
         }
        else if(mins<15)
       {
-        TWENTY=1;
+        data_num|=TWENTY;
         }
        else if(mins<20)
       {
-        QUARTER=1;
-        MINUTES=0;
+        data_num|=QUARTER;
+        data_num&=~MINUTES;
         }
        else if(mins<25)
       {
-        TEN_M=1;
+        data_num|=TEN_M;
         }
        else if(mins<30)
       {
-        FIVE_M=1;
+        data_num|=FIVE_M;
         }
      }
 }
@@ -222,15 +222,15 @@ if(cur_time.month()==9)
 {
   if(cur_time.day()==29)
     {
-      AKASH=1;
-      HAPPY=1;
-      BIRTHDAY=1;
+      data_num|=AKASH;
+      data_num|=HAPPY;
+      data_num|=BIRTHDAY;
       }
     else if(cur_time.day()==30)
     {
-      ABHISHEK=1;
-      HAPPY=1;
-      BIRTHDAY=1;
+      data_num|=ABHISHEK;
+      data_num|=HAPPY;
+      data_num|=BIRTHDAY;
       }
   }
 
